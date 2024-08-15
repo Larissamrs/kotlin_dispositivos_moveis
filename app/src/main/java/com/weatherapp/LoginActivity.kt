@@ -105,6 +105,14 @@ fun LoginPage(modifier: Modifier = Modifier) {
             ) {
                 Text("Limpar")
             }
+            Spacer(modifier = Modifier.size(24.dp))
+            Button(
+                onClick = {
+                    activity?.startActivity(Intent(activity, RegisterActivity::class.java))
+                }
+            ) {
+                Text("Registrar")
+            }
         }
     }
 }
