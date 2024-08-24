@@ -50,9 +50,10 @@ fun LoginPage(modifier: Modifier = Modifier) {
             value = email,
             label = { Text(text = "Digite seu e-mail") },
             modifier = Modifier.fillMaxWidth(),
-            onValueChange = { email = it }
+            onValueChange = { email = it },
         )
         Spacer(modifier = Modifier.size(24.dp))
+
         OutlinedTextField(
             value = password,
             label = { Text(text = "Digite sua senha") },
@@ -64,14 +65,13 @@ fun LoginPage(modifier: Modifier = Modifier) {
         Row(modifier = modifier) {
             Button(
                 onClick = {
-                    if (email.isNotEmpty() && password.isNotEmpty()) {
-                        Toast.makeText(activity, "Login OK!", Toast.LENGTH_LONG).show()
-                        activity?.startActivity(
-                            Intent(activity, MainActivity::class.java).setFlags(
-                                Intent.FLAG_ACTIVITY_SINGLE_TOP
-                            )
+                    Toast.makeText(activity, "Login OK!", Toast.LENGTH_LONG).show()
+                    activity?.startActivity(
+                        Intent(activity, MainActivity::class.java).setFlags(
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP
                         )
-                    }
+                    )
+
                 },
                 enabled = email.isNotEmpty() && password.isNotEmpty()
             ) {
@@ -79,18 +79,26 @@ fun LoginPage(modifier: Modifier = Modifier) {
             }
             Spacer(modifier = Modifier.size(24.dp))
             Button(
-                onClick = { email = ""; password = "" }
-            ) {
+                onClick = { email = ""; password = "" },
+
+                ) {
                 Text("Limpar")
             }
             Spacer(modifier = Modifier.size(24.dp))
+
             Button(
                 onClick = {
-                    activity?.startActivity(Intent(activity, RegisterActivity::class.java))
-                }
-            ) {
-                Text("Registrar")
+                    activity?.startActivity(
+                        Intent(activity, RegisterActivity::class.java).setFlags(
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        )
+                    )
+                },
+
+                ) {
+                Text("Registrar-se")
             }
+            Spacer(modifier = Modifier.size(24.dp))
         }
     }
 }

@@ -15,10 +15,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.weatherapp.R
+import android.content.Context
 
-@Preview
 @Composable
-fun HomePage() {
+fun HomePage(modifier: Modifier = Modifier,viewModel: MainViewModel, context: Context) {
     Column(
         modifier = Modifier
             .fillMaxSize()

@@ -24,14 +24,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.platform.LocalContext
+import android.content.Context
 
 @Composable
 fun ListPage(
     modifier: Modifier = Modifier,
-    viewModel: MainViewModel
+    viewModel: MainViewModel,
+    context: Context
 ) {
     val cityList = viewModel.cities
-    val activity = LocalContext.current as? Activity
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -42,11 +43,11 @@ fun ListPage(
                     city = city,
                     onClose = {
                         /* TO DO */
-                        Toast.makeText(activity, "Cidade Removida", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Cidade Removida", Toast.LENGTH_LONG).show()
                         viewModel.remove(city)
                     },  onClick = {
                         /* TO DO */
-                        Toast.makeText(activity, "Abrindo!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Abrindo!", Toast.LENGTH_LONG).show()
                     })
             }
     }
