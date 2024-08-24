@@ -1,6 +1,6 @@
-package com.weatherapp.ui.ui.theme
+package com.weatherapp.ui.nav.ui.theme
 
-
+import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -52,7 +52,7 @@ fun WeatherAppTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = com.weatherapp.ui.theme.Typography,
+        typography = Typography,
         content = content
     )
 }
