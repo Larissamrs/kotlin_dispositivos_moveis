@@ -16,16 +16,20 @@ class MainViewModel : ViewModel() {
         get() = _cities
 
     private var _loggedIn = mutableStateOf(false)
+
     val loggedIn : Boolean
         get() = _loggedIn.value
+
     private val listener = FirebaseAuth.AuthStateListener {
             firebaseAuth ->
         _loggedIn.value = firebaseAuth.currentUser != null
     }
+
     init {
         listener.onAuthStateChanged(Firebase.auth)
         Firebase.auth.addAuthStateListener(listener)
     }
+
     override fun onCleared() {
         Firebase.auth.removeAuthStateListener(listener)
     }

@@ -1,6 +1,7 @@
 package com.weatherapp
 
 import android.Manifest
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -19,6 +20,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -59,14 +61,18 @@ class MainActivity : ComponentActivity() {
                         if (city.isNotBlank()) viewModel.add(city)
                         showDialog = false
                     })
+                LaunchedEffect(viewModel.loggedIn) {
+                    if (!viewModel.loggedIn) {
+                        (context as? Activity)?.finish()
+                    }
+                }
+
                 Scaffold(
                     topBar = {
                         TopAppBar(
                             title = { Text("Bem-vindo/a!") },
                             actions = {
-                                IconButton( onClick = {
-                                    Firebase.auth.signOut()
-                                } ) {
+                                IconButton( onClick = { Firebase.auth.signOut() } ) {
                                     Icon(
                                         imageVector = Icons.AutoMirrored.Filled.ExitToApp,
                                         contentDescription = "Localized description"
