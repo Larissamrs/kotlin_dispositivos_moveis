@@ -18,16 +18,16 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        val keyFile = project.rootProject.file("local.properties")
-        val props = Properties()
-        props.load(keyFile.inputStream())
-        buildConfigField ("String", "WEATHER_API_KEY",
-            props.getProperty("WEATHER_API_KEY"))
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
+        val keyFile = project.rootProject.file("local.properties")
+        val props = Properties()
+        props.load(keyFile.inputStream())
+        buildConfigField ("String",
+            "WEATHER_API_KEY",
+            props.getProperty("WEATHER_API_KEY"))
     }
 
     buildTypes {
@@ -47,6 +47,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        compose = true
         buildConfig = true
     }
     composeOptions {

@@ -2,15 +2,10 @@ package com.weatherapp.model
 
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
-import com.weatherapp.db.fb.FBDatabase
 import com.weatherapp.repo.Repository
 
 class MainViewModel : ViewModel(), Repository.Listener {
