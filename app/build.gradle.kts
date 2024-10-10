@@ -47,7 +47,6 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
-        compose = true
         buildConfig = true
     }
     composeOptions {
