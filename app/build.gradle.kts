@@ -89,4 +89,7 @@ dependencies {
     implementation(libs.maps.compose)
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
+    // bibliotecas Picasso e Coil
+    implementation(libs.coil.compose)
+    implementation(libs.picasso)
 }

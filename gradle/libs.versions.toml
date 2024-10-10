@@ -1,5 +1,6 @@
 [versions]
 agp = "8.3.0"
+coilCompose = "2.7.0"
 converterGson = "2.9.0"
 kotlin = "1.9.0"
 coreKtx = "1.12.0"
@@ -15,6 +16,7 @@ firebaseFirestore = "25.1.0"
 googleGmsGoogleServices = "4.4.2"
 mapsCompose = "2.8.0"
 navigationCompose = "2.8.2"
+picasso = "2.8"
 playServicesLocation = "21.2.0"
 playServicesMaps = "18.2.0"
 retrofit = "2.9.0"
@@ -24,6 +26,7 @@ secretsGradlePlugin = "2.0.1"
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -42,6 +45,7 @@ google-services = { group = "com.google.gms", name = "google-services", version.
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
+picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }

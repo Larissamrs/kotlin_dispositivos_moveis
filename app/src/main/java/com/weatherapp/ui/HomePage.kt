@@ -18,8 +18,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import com.weatherapp.R
 import com.weatherapp.model.Forecast
 import com.weatherapp.model.MainViewModel
 import com.weatherapp.repo.Repository
@@ -35,10 +38,11 @@ fun HomePage(
 ) {
     Column {
         Row {
-            Icon(
-                imageVector = Icons.Filled.AccountBox,
-                contentDescription = "Localized description",
-                modifier = Modifier.size(130.dp)
+            AsyncImage(
+                model = viewModel.city?.weather?.imgUrl,
+                modifier = Modifier.size(100.dp),
+                error = painterResource(id = R.drawable.loading),
+                contentDescription = "Imagem"
             )
             val format = DecimalFormat("#.0")
             Column {
@@ -77,9 +81,12 @@ fun ForecastItem(
             .clickable( onClick = { onClick(forecast) }),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon( imageVector = Icons.Filled.LocationOn,
-            contentDescription = "Localized description",
-            modifier = Modifier.size(40.dp) )
+        AsyncImage( // Substitui o Icon
+            model = forecast.imgUrl,
+            modifier = Modifier.size(40.dp),
+            error = painterResource(id = R.drawable.loading),
+            contentDescription = "Imagem"
+        )
         Spacer(modifier = Modifier.size(12.dp))
         Column {
             Text(modifier = Modifier, text = forecast.weather, fontSize = 20.sp)
