@@ -5,25 +5,28 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.weatherapp.db.fb.FBDatabase
+import com.weatherapp.model.MainViewModel
+import com.weatherapp.repo.Repository
 import com.weatherapp.ui.HomePage
 import com.weatherapp.ui.ListPage
 import com.weatherapp.ui.MapPage
-import com.weatherapp.model.MainViewModel
-import com.weatherapp.repo.Repository
 
 @Composable
-fun MainNavHost(navController: NavHostController, viewModel: MainViewModel, context: Context, repo: Repository) {
+fun MainNavHost(
+    navController: NavHostController,
+    viewModel: MainViewModel,
+    context: Context,
+    repo: Repository
+) {
     NavHost(navController, startDestination = BottomNavItem.HomePage.route) {
-        // composable (route = NOME DESTA DESTINAÇÃO) { UI DA DESTINAÇÃO }
         composable(route = BottomNavItem.HomePage.route) {
-            HomePage(viewModel = viewModel, context = context, repo = repo)
+            HomePage(viewModel = viewModel, context= context, repo = repo)
         }
         composable(route = BottomNavItem.ListPage.route) {
-            ListPage(viewModel = viewModel, context = context, repo = repo)
+            ListPage(viewModel = viewModel, context= context, repo = repo, navCtrl = navController)
         }
         composable(route = BottomNavItem.MapPage.route) {
-            MapPage(viewModel = viewModel, context = context, repo = repo)
+            MapPage(viewModel = viewModel, context= context, repo = repo)
         }
     }
 }

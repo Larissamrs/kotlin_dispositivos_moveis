@@ -4,21 +4,29 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
+import com.weatherapp.db.fb.FBDatabase
+import com.weatherapp.model.City
 import com.weatherapp.model.MainViewModel
 import com.weatherapp.repo.Repository
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview
 @Composable
 fun MapPage(
     modifier: Modifier = Modifier,
@@ -26,17 +34,15 @@ fun MapPage(
     context: Context,
     repo: Repository
 ) {
-    val camPosState = rememberCameraPositionState()
+    val camPosState = rememberCameraPositionState ()
     val hasLocationPermission by remember {
         mutableStateOf(
-            ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) ==
+            ContextCompat.checkSelfPermission(context,
+                Manifest.permission.ACCESS_FINE_LOCATION) ==
                     PackageManager.PERMISSION_GRANTED
         )
     }
-    GoogleMap(
+    GoogleMap (
         modifier = Modifier.fillMaxSize(),
         onMapClick = {
             repo.addCity(lat = it.latitude, lng = it.longitude)
@@ -47,8 +53,7 @@ fun MapPage(
     ) {
         viewModel.cities.forEach {
             if (it.location != null) {
-                Marker(
-                    state = MarkerState(position = it.location!!),
+                Marker( state = MarkerState(position = it.location!!),
                     title = it.name,
                     snippet = it.weather?.desc ?: "Carregando..."
                 )

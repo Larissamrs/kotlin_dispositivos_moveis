@@ -2,10 +2,15 @@ package com.weatherapp.model
 
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.weatherapp.db.fb.FBDatabase
 import com.weatherapp.repo.Repository
 
 class MainViewModel : ViewModel(), Repository.Listener {
@@ -13,6 +18,10 @@ class MainViewModel : ViewModel(), Repository.Listener {
     val cities : List<City>
         get() = _cities.values.toList()
 
+    private var _city = mutableStateOf<City?>(null)
+    var city: City?
+        get() = _city.value
+        set(tmp) { _city = mutableStateOf(tmp?.copy()) }
     private val _user = mutableStateOf(User("", ""))
     val user : User
         get() = _user.value
@@ -38,5 +47,9 @@ class MainViewModel : ViewModel(), Repository.Listener {
     override fun onCityUpdated(city: City) {
         _cities.remove(city.name)
         _cities[city.name] = city.copy()
+
+        if (_city.value?.name == city.name) {
+            _city.value = city.copy()
+        }
     }
 }

@@ -1,6 +1,5 @@
 package com.weatherapp.ui
 
-import android.app.Activity
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.clickable
@@ -16,32 +15,27 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.rounded.FavoriteBorder
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.weatherapp.db.fb.FBDatabase
+import androidx.navigation.NavHostController
 import com.weatherapp.model.City
 import com.weatherapp.model.MainViewModel
 import com.weatherapp.repo.Repository
+import com.weatherapp.ui.nav.BottomNavItem
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
 fun ListPage(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel,
     context: Context,
-    repo: Repository
+    repo: Repository,
+    navCtrl: NavHostController
 ) {
     val cityList = viewModel.cities
 
@@ -56,8 +50,16 @@ fun ListPage(
             }
             CityItem(city = city,
                 onClose = { repo.remove(city) },
-                onClick = { city:City ->
-                    Toast.makeText(context, "${city.name}!", Toast.LENGTH_LONG).show()
+                onClick = {
+                    viewModel.city = city
+                    repo.loadForecast(city)
+                    navCtrl.navigate(BottomNavItem.HomePage.route) {
+                        navCtrl.graph.startDestinationRoute?.let {
+                            popUpTo(it) { saveState = true }
+                            restoreState = true
+                        }
+                        launchSingleTop = true
+                    }
                 })
         }
     }
