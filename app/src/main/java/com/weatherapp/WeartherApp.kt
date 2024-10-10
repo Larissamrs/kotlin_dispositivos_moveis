@@ -1,4 +1,4 @@
-package com.weatherapp.ui
+package com.weatherapp
 
 import android.app.Application
 import com.weatherapp.monitor.ForecastMonitor
