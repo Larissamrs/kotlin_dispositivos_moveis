@@ -14,6 +14,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -90,6 +92,12 @@ fun CityItem(
         )
         Spacer(modifier = Modifier.size(12.dp))
         Column(modifier = modifier.weight(1f)) {
+            Icon(
+                imageVector = if (city.isMonitored ==
+                    true) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
+                contentDescription = "Monitor?",
+                modifier = Modifier.size(16.dp)
+            )
             Text(modifier = Modifier,
                 text = city.name,
                 fontSize = 24.sp)
