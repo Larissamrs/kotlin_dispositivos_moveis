@@ -1,6 +1,7 @@
 package com.weatherapp.ui
 
 import android.app.Activity
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import com.weatherapp.LoginActivity
 import com.weatherapp.db.fb.FBDatabase
 import com.weatherapp.model.User
 
@@ -36,10 +38,10 @@ import com.weatherapp.model.User
 @Composable
 fun RegisterPage(modifier: Modifier = Modifier) {
     val fbDB = remember { FBDatabase() }
-    var name by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
-    var password1 by rememberSaveable { mutableStateOf("") }
-    var password2 by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
+    var name by rememberSaveable { mutableStateOf("") }
+    var passwordConfirmation by rememberSaveable { mutableStateOf("") }
     val activity = LocalContext.current as? Activity
     Column(
         modifier = Modifier.padding(16.dp),
@@ -47,7 +49,7 @@ fun RegisterPage(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Registre-se!",
+            text = "Bem-vindo/a!",
             fontSize = 24.sp
         )
         Spacer(modifier = Modifier.size(24.dp))
@@ -66,55 +68,46 @@ fun RegisterPage(modifier: Modifier = Modifier) {
         )
         Spacer(modifier = Modifier.size(24.dp))
         OutlinedTextField(
-            value = password1,
+            value = password,
             label = { Text(text = "Digite sua senha") },
             modifier = Modifier.fillMaxWidth(),
-            onValueChange = { password1 = it },
+            onValueChange = { password = it },
             visualTransformation = PasswordVisualTransformation()
         )
         Spacer(modifier = Modifier.size(24.dp))
         OutlinedTextField(
-            value = password2,
-            label = { Text(text = "Repita sua senha") },
+            value = passwordConfirmation,
+            label = { Text(text = "Digite a confirmação da senha") },
             modifier = Modifier.fillMaxWidth(),
-            onValueChange = { password2 = it },
+            onValueChange = { passwordConfirmation = it },
             visualTransformation = PasswordVisualTransformation()
         )
         Spacer(modifier = Modifier.size(24.dp))
         Row(modifier = modifier) {
             Button(
                 onClick = {
-                    Firebase.auth.createUserWithEmailAndPassword(email, password1)
+                    Firebase.auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(activity!!) { task ->
                             if (task.isSuccessful) {
-
-                                val userId = Firebase.auth.currentUser?.uid
-
-                                if (userId != null) {
-
-                                    val user = User(name = name, email = email)
-                                    
-                                    fbDB.register(user)
-
-                                    Toast.makeText(activity, "Registro OK!", Toast.LENGTH_LONG).show()
-
-                                    activity.finish()
-                                } else {
-                                    Toast.makeText(activity, "Falha ao registrar no Firestore!", Toast.LENGTH_LONG).show()
-                                }
+                                fbDB.register(User(name, email))
+                                Toast.makeText(activity,
+                                    "Registro OK!", Toast.LENGTH_LONG).show()
+                                activity.finish()
                             } else {
-                                Toast.makeText(activity, "Registro FALHOU!", Toast.LENGTH_LONG).show()
+                                Toast.makeText(activity,
+                                    "Registro FALHOU!", Toast.LENGTH_LONG).show()
                             }
                         }
                 },
-                enabled = name.isNotEmpty() && email.isNotEmpty() && password1.isNotEmpty() && password2.isNotEmpty()
+                enabled = email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty() && passwordConfirmation.isNotEmpty() && password.equals(
+                    passwordConfirmation
+                )
             ) {
                 Text("Registrar")
             }
-
             Spacer(modifier = Modifier.size(24.dp))
             Button(
-                onClick = { name = ""; email = ""; password1 = ""; password2 = "" }
+                onClick = { email = ""; password = ""; name = ""; passwordConfirmation = "" }
             ) {
                 Text("Limpar")
             }

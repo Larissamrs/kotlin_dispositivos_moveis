@@ -32,8 +32,6 @@ import com.google.firebase.auth.auth
 import com.weatherapp.MainActivity
 import com.weatherapp.RegisterActivity
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
 @Composable
 fun LoginPage(modifier: Modifier = Modifier) {
     var email by rememberSaveable { mutableStateOf("") }

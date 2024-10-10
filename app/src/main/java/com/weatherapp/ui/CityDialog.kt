@@ -27,7 +27,6 @@ import androidx.compose.ui.window.Dialog
 @Composable
 fun CityDialog(onDismiss: () -> Unit, onConfirm: (city: String) -> Unit) {
     val cityName = remember { mutableStateOf("") }
-
     Dialog(onDismissRequest = { onDismiss() } ) {
         Surface( shape = RoundedCornerShape(16.dp) ) {
             Column(modifier = Modifier.padding(20.dp)) {
@@ -38,7 +37,8 @@ fun CityDialog(onDismiss: () -> Unit, onConfirm: (city: String) -> Unit) {
                 ) {
                     Text(text = "Adicionar cidade favorita:")
                     Icon(imageVector = Icons.Filled.Close,
-                        contentDescription = "",
+                        contentDescription = ""
+                        ,
                         modifier = Modifier.clickable { onDismiss() })
                 }
                 Spacer(modifier = Modifier.height(20.dp))
