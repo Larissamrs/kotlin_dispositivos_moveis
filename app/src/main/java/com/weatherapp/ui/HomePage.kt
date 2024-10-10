@@ -58,15 +58,22 @@ fun HomePage(
                     fontSize = 20.sp)
             }
         }
-        if (viewModel.city == null ||
-            viewModel.city!!.forecast == null) return
-        LazyColumn {
-            items(viewModel.city!!.forecast!!) { forecast ->
-                ForecastItem(forecast, onClick = { }, modifier = modifier )
+        // if (viewModel.city == null ||
+        // viewModel.city!!.forecast == null) return
+        viewModel.city?.forecast?.let { forecasts ->
+            LazyColumn {
+                items(forecasts) { forecast ->
+                    ForecastItem(
+                        forecast = forecast,
+                        onClick = { },
+                        modifier = modifier
+                    )
+                }
             }
         }
     }
 }
+
 @Composable
 fun ForecastItem(
     forecast: Forecast,
@@ -81,7 +88,7 @@ fun ForecastItem(
             .clickable( onClick = { onClick(forecast) }),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        AsyncImage( // Substitui o Icon
+        AsyncImage(
             model = forecast.imgUrl,
             modifier = Modifier.size(40.dp),
             error = painterResource(id = R.drawable.loading),
