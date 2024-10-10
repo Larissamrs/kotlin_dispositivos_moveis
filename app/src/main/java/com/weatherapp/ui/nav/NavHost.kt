@@ -10,19 +10,20 @@ import com.weatherapp.ui.HomePage
 import com.weatherapp.ui.ListPage
 import com.weatherapp.ui.MapPage
 import com.weatherapp.model.MainViewModel
+import com.weatherapp.repo.Repository
 
 @Composable
-fun MainNavHost(navController: NavHostController, viewModel: MainViewModel, context: Context, fbDB: FBDatabase) {
+fun MainNavHost(navController: NavHostController, viewModel: MainViewModel, context: Context, repo: Repository) {
     NavHost(navController, startDestination = BottomNavItem.HomePage.route) {
         // composable (route = NOME DESTA DESTINAÇÃO) { UI DA DESTINAÇÃO }
         composable(route = BottomNavItem.HomePage.route) {
-            HomePage(viewModel = viewModel, context = context, fbDB = fbDB)
+            HomePage(viewModel = viewModel, context = context, repo = repo)
         }
         composable(route = BottomNavItem.ListPage.route) {
-            ListPage(viewModel = viewModel, context = context, fbDB = fbDB)
+            ListPage(viewModel = viewModel, context = context, repo = repo)
         }
         composable(route = BottomNavItem.MapPage.route) {
-            MapPage(viewModel = viewModel, context = context, fbDB = fbDB)
+            MapPage(viewModel = viewModel, context = context, repo = repo)
         }
     }
 }

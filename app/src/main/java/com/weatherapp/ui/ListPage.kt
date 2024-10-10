@@ -23,16 +23,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.weatherapp.db.fb.FBDatabase
 import com.weatherapp.model.City
 import com.weatherapp.model.MainViewModel
+import com.weatherapp.repo.Repository
 
 @Composable
 fun ListPage(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel,
     context: Context,
-    fbDB: FBDatabase
+    repo: Repository
 ) {
     val cities = viewModel.cities
     LazyColumn(
@@ -42,7 +42,7 @@ fun ListPage(
     ) {
         items(cities) { city ->
             CityItem(city = city, onClose = {
-                fbDB.remove(city)
+                repo.remove(city)
                 Toast.makeText(context, "Cidade Removida!", Toast.LENGTH_LONG).show()
             }, onClick = {
                 Toast.makeText(context, "Cidade Adicionada", Toast.LENGTH_LONG).show()
@@ -72,7 +72,7 @@ fun CityItem(
                 text = city.name,
                 fontSize = 24.sp)
             Text(modifier = Modifier,
-                text = city.weather,
+                text = city.weather.toString(),
                 fontSize = 16.sp)
         }
         IconButton(onClick = onClose) {

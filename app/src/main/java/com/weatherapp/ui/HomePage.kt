@@ -17,13 +17,14 @@ import androidx.compose.ui.unit.sp
 import com.weatherapp.R
 import com.weatherapp.db.fb.FBDatabase
 import com.weatherapp.model.MainViewModel
+import com.weatherapp.repo.Repository
 
 @Composable
 fun HomePage(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel,
     context: Context,
-    fbDB: FBDatabase
+    repo: Repository
 ) {
     Column(
         modifier = Modifier
