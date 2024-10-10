@@ -7,11 +7,11 @@ class FBCity {
     var name : String? = null
     var lat : Double? = null
     var lng : Double? = null
-    var monitored : Boolean? = false
+    var isMonitored : Boolean = false
 
     fun toCity(): City {
         val latlng =  LatLng(lat ?: 0.0, lng ?: 0.0)
-        return City(name!!, location = latlng, isMonitored = monitored)
+        return City(name!!, location = latlng, isMonitored = isMonitored)
     }
 }
 
@@ -21,7 +21,7 @@ fun City.toFBCity() : FBCity {
     fbCity.name = this.name
     fbCity.lat = this.location?.latitude ?: 0.0
     fbCity.lng = this.location?.longitude ?: 0.0
-    fbCity.monitored = this.isMonitored
+    fbCity.isMonitored = this.isMonitored
 
     return fbCity
 }
